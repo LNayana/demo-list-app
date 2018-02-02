@@ -83,12 +83,15 @@ var Header = function Header(props) {
 			null,
 			props.title
 		),
-		React.createElement(
+		props.subtitle && React.createElement(
 			'h3',
 			null,
 			props.subtitle
 		)
 	);
+};
+Header.defaultProps = {
+	title: "My Demo App"
 };
 
 var Action = function Action(props) {
