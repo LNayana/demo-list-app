@@ -20,7 +20,7 @@ var DemoApp = function (_React$Component) {
 		_this.handleAddNewOption = _this.handleAddNewOption.bind(_this);
 		_this.handlePickOne = _this.handlePickOne.bind(_this);
 		_this.state = {
-			options: []
+			options: props.options
 		};
 		return _this;
 	}
@@ -73,6 +73,10 @@ var DemoApp = function (_React$Component) {
 
 	return DemoApp;
 }(React.Component);
+
+DemoApp.defaultProps = {
+	options: ['One', 'Two']
+};
 
 var Header = function Header(props) {
 	return React.createElement(
@@ -186,4 +190,4 @@ var AddOption = function (_React$Component2) {
 	return AddOption;
 }(React.Component);
 
-ReactDOM.render(React.createElement(DemoApp, null), document.getElementById('DemoContainer'));
+ReactDOM.render(React.createElement(DemoApp, { options: ['Apple', 'Orange'] }), document.getElementById('DemoContainer'));

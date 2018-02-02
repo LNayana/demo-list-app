@@ -5,7 +5,7 @@ class DemoApp extends React.Component {
 		this.handleAddNewOption = this.handleAddNewOption.bind(this);
 		this.handlePickOne= this.handlePickOne.bind(this);
 		this.state = {
-			options:[]
+			options:props.options
 		};
 	}
 	
@@ -50,6 +50,10 @@ class DemoApp extends React.Component {
 		);
 	}
 }
+
+DemoApp.defaultProps = {
+	options:['One','Two']
+};
 
 const Header = (props) => {
 	return(
@@ -126,4 +130,4 @@ React.Component{
 }
 
 
-ReactDOM.render( <DemoApp /> , document.getElementById('DemoContainer'));
+ReactDOM.render( <DemoApp options={['Apple','Orange']}/> , document.getElementById('DemoContainer'));
