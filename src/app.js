@@ -4,19 +4,20 @@ class DemoApp extends React.Component {
 		this.handleRemoveAll = this.handleRemoveAll.bind(this);
 		this.handleAddNewOption = this.handleAddNewOption.bind(this);
 		this.handlePickOne= this.handlePickOne.bind(this);
+		this.handleRemoveOption = this.handleRemoveOption.bind(this);
 		this.state = {
 			options:props.options
 		};
 	}
 	
 	handleRemoveAll() {
-		this.setState( () => {
-			return{
-				options:[]
-			};
-		});
+		this.setState( () => ({options:[]}));
 	}
-	
+	handleRemoveOption(optionToRemove){
+		this.setState((prevState)=>({
+			options: prevState.options.filter((option)=> {return optionToRemove !== option;})
+		}));
+	}
 	handleAddNewOption(option){ 
 		if(!option){
 			return 'Please enter valid option';
@@ -24,11 +25,7 @@ class DemoApp extends React.Component {
 		else if(this.state.options.indexOf(option)> -1){
 			return 'Value already exists';
 		}
-		this.setState((prevState) => {
-			return {
-				options: prevState.options.concat(option)
-			};
-		});	
+		this.setState((prevState) => ({options: prevState.options.concat(option)}));	
 	}
 	
 	handlePickOne(){
@@ -44,7 +41,9 @@ class DemoApp extends React.Component {
 			<div>
 				<Header title={title} subtitle={subTitle} /> 
 				<Action handlePickOne = {this.handlePickOne} hasOptions={this.state.options.length > 0}/>
-				<Options options={this.state.options} handleRemoveAll={this.handleRemoveAll} />
+				<Options options={this.state.options} handleRemoveAll={this.handleRemoveAll}
+				handleRemoveOption = {this.handleRemoveOption}
+				/>
 				<AddOption handleAddNewOption={this.handleAddNewOption} />
 			</div>
 		);
@@ -52,7 +51,7 @@ class DemoApp extends React.Component {
 }
 
 DemoApp.defaultProps = {
-	options:['One','Two']
+	options:[]
 };
 
 const Header = (props) => {
@@ -81,7 +80,10 @@ const Options = (props) => {
 			<div>
 				<button onClick={props.handleRemoveAll}>Remove All</button>
 			{props.options.map(
-			(option) => <Option key={option} optionText={option} /> 
+			(option) => (
+				<Option key={option} optionText={option} 
+				handleRemoveOption = {props.handleRemoveOption}
+				/> )
 		)}
 				
 			</div>
@@ -90,7 +92,10 @@ const Options = (props) => {
 
 const Option = (props) => {
 	return(
+		<div>
 			<p>{props.optionText}</p>
+		<button onClick={(e)=>props.handleRemoveOption(props.optionText)}>Remove </button>
+		</div>
 		);
 }
 
@@ -111,9 +116,7 @@ React.Component{
 		const option = e.target.elements.newoption.value.trim(); 
 		const error = this.props.handleAddNewOption(option);
 		
-		this.setState(()=>{
-			return {error};
-		});
+		this.setState(()=> ({error}));
 	}
 
 	render(){
