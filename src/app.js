@@ -34,6 +34,30 @@ class DemoApp extends React.Component {
     	alert(option);	
 	}
 	
+	componentDidMount(){ 
+		try{
+		const json = localStorage.getItem('options');
+		const options =JSON.parse(json);
+		
+		if(options){
+			this.setState(()=>({options}));
+		}
+		}catch(error){
+			
+		}
+	}
+	
+	componentDidUpdate(prevProps,prevState){
+		if(prevState.options.length !== this.state.options.length){
+			const json = JSON.stringify(this.state.options);
+			localStorage.setItem('options',json);
+		}
+	}
+	
+	componentWillUnmount(){
+		console.log('component will unmount');
+	}
+	
 	render() {
 		const title ="My React App";
 		const subTitle ="Enjoy React Programming!";
@@ -79,7 +103,8 @@ const Options = (props) => {
 	return(
 			<div>
 				<button onClick={props.handleRemoveAll}>Remove All</button>
-			{props.options.map(
+		{props.options.length ===0 && <p>please add an option</p>}
+		{props.options.map(
 			(option) => (
 				<Option key={option} optionText={option} 
 				handleRemoveOption = {props.handleRemoveOption}
@@ -117,6 +142,10 @@ React.Component{
 		const error = this.props.handleAddNewOption(option);
 		
 		this.setState(()=> ({error}));
+		
+		if(!error){
+			e.target.elements.newoption.value='';
+		}
 	}
 
 	render(){
@@ -133,4 +162,4 @@ React.Component{
 }
 
 
-ReactDOM.render( <DemoApp options={['Apple','Orange']}/> , document.getElementById('DemoContainer'));
+ReactDOM.render( <DemoApp/> , document.getElementById('DemoContainer'));
