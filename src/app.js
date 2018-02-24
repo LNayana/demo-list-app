@@ -36,12 +36,12 @@ class DemoApp extends React.Component {
 	
 	componentDidMount(){ 
 		try{
-		const json = localStorage.getItem('options');
-		const options =JSON.parse(json);
+			const json = localStorage.getItem('options');
+			const options =JSON.parse(json);
 		
-		if(options){
-			this.setState(()=>({options}));
-		}
+			if(options){
+				this.setState(()=>({options}));
+			}
 		}catch(error){
 			
 		}
