@@ -10,11 +10,12 @@
     "serve": "live-server public/",
     "build": "webpack --watch",
     "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch",
-	  "dev-server":"webpack-dev-server"
+    "dev-server": "webpack-dev-server"
   },
   "dependencies": {
     "babel-core": "6.25.0",
     "babel-loader": "7.1.1",
+    "babel-plugin-transform-class-properties": "6.24.1",
     "babel-preset-env": "1.5.2",
     "babel-preset-react": "6.24.1",
     "react": "^16.2.0",

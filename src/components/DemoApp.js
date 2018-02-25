@@ -5,26 +5,21 @@ import Options from './Options';
 import AddOption from './AddOption';
 
 export default class DemoApp extends React.Component {
-	constructor(props){
-		super(props);
-		this.handleRemoveAll = this.handleRemoveAll.bind(this);
-		this.handleAddNewOption = this.handleAddNewOption.bind(this);
-		this.handlePickOne= this.handlePickOne.bind(this);
-		this.handleRemoveOption = this.handleRemoveOption.bind(this);
-		this.state = {
-			options:props.options
+	state = {
+			options:[]
 		};
-	}
 	
-	handleRemoveAll() {
+	handleRemoveAll= ()=> {
 		this.setState( () => ({options:[]}));
-	}
-	handleRemoveOption(optionToRemove){
+	};
+	
+	handleRemoveOption = (optionToRemove)=>{
 		this.setState((prevState)=>({
 			options: prevState.options.filter((option)=> {return optionToRemove !== option;})
 		}));
-	}
-	handleAddNewOption(option){ 
+	};
+	
+	handleAddNewOption= (option)=>{ 
 		if(!option){
 			return 'Please enter valid option';
 		}
@@ -32,13 +27,13 @@ export default class DemoApp extends React.Component {
 			return 'Value already exists';
 		}
 		this.setState((prevState) => ({options: prevState.options.concat(option)}));	
-	}
+	};
 	
-	handlePickOne(){
+	handlePickOne=()=>{
 		const randomNum = Math.floor(Math.random() * this.state.options.length);
     	const option = this.state.options[randomNum];
     	alert(option);	
-	}
+	};
 	
 	componentDidMount(){ 
 		try{
