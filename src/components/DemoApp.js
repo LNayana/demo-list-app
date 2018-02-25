@@ -3,10 +3,12 @@ import Header from './Header'; // Its a default export
 import {Action} from './Action'; // Its a named export
 import Options from './Options';
 import AddOption from './AddOption';
+import OptionModal from './OptionModal';
 
 export default class DemoApp extends React.Component {
 	state = {
-			options:[]
+			options:[],
+			selectedOption:undefined
 		};
 	
 	handleRemoveAll= ()=> {
@@ -32,7 +34,16 @@ export default class DemoApp extends React.Component {
 	handlePickOne=()=>{
 		const randomNum = Math.floor(Math.random() * this.state.options.length);
     	const option = this.state.options[randomNum];
-    	alert(option);	
+    	//using updated function
+		this.setState(()=>({
+			selectedOption:option
+		}));
+	};
+	
+	handleClearSelectedOption = () =>{
+		this.setState(()=>({
+			selectedOption:undefined
+		}));	
 	};
 	
 	componentDidMount(){ 
@@ -70,6 +81,7 @@ export default class DemoApp extends React.Component {
 				handleRemoveOption = {this.handleRemoveOption}
 				/>
 				<AddOption handleAddNewOption={this.handleAddNewOption} />
+			<OptionModal handleClearSelectedOption = {this.handleClearSelectedOption} selectedOption={this.state.selectedOption} />
 			</div>
 		);
 	}
