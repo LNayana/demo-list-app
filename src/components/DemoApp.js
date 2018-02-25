@@ -75,14 +75,28 @@ export default class DemoApp extends React.Component {
 		const subTitle ="Enjoy React Programming!";
 		return ( 
 			<div>
-				<Header title={title} subtitle={subTitle} /> 
-				<Action handlePickOne = {this.handlePickOne} hasOptions={this.state.options.length > 0}/>
-				<Options options={this.state.options} handleRemoveAll={this.handleRemoveAll}
-				handleRemoveOption = {this.handleRemoveOption}
-				/>
-				<AddOption handleAddNewOption={this.handleAddNewOption} />
-			<OptionModal handleClearSelectedOption = {this.handleClearSelectedOption} selectedOption={this.state.selectedOption} />
-			</div>
+        <Header title={title} subtitle={subTitle} />
+        <div className="container">
+          <Action
+            hasOptions={this.state.options.length > 0}
+            handlePickOne={this.handlePickOne}
+          />
+          <div className="widget">
+            <Options
+              options={this.state.options}
+              handleRemoveAll={this.handleRemoveAll}
+              handleRemoveOption={this.handleRemoveOption}
+            />
+            <AddOption
+              handleAddNewOption={this.handleAddNewOption}
+            />
+          </div>
+        </div>
+        <OptionModal
+          selectedOption={this.state.selectedOption}
+          handleClearSelectedOption={this.handleClearSelectedOption}
+        />
+      </div>
 		);
 	}
 }
